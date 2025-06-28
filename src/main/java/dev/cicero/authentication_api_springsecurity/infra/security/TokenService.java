@@ -26,6 +26,7 @@ public class TokenService {
                     .withSubject(user.getEmail())
                     .withExpiresAt(generateExpirationDate())
                     .sign(algorithm);
+
             return token;
         } catch (JWTCreationException exception) {
             throw new RuntimeException("Erro while authenticating");
@@ -35,6 +36,7 @@ public class TokenService {
     public String validateToken(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
+
             return JWT.require(algorithm)
                     .withIssuer("login-auth-api")
                     .build()
